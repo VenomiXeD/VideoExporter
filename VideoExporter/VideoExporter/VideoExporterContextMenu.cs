@@ -37,7 +37,7 @@ public class VideoExporterContextMenu : DataExplorerContextMenuExtension
         Directory.CreateDirectory("exported");
         using FileStream fs = File.Create($"./exported/{chunkGuid.ToString()}.vp6");
         using Stream chunkStream = App.AssetManager.GetChunk(App.AssetManager.GetChunkEntry(chunkGuid));
-        chunkStream.CopyTo(fs);
+        await chunkStream.CopyToAsync(fs);
 
         fs.Close();
         fs.Dispose();
@@ -59,7 +59,7 @@ public class VideoExporterContextMenu : DataExplorerContextMenuExtension
             $"-i \"{inputFile}\" -c:v libx264 -crf 18 -preset slow -c:a aac -b:a 192k \"{outputFileBaseMp4}\"";
         App.Logger.Log($"[EXEC] {processStart.FileName} {processStart.Arguments}");
         await Task.Delay(100);
-        Process.Start(processStart).WaitForExit();
+        Process.Start(processStart)!.WaitForExit();
 
 
         // Get the wav output of the chunk
@@ -69,7 +69,7 @@ public class VideoExporterContextMenu : DataExplorerContextMenuExtension
 
         App.Logger.Log($"[EXEC] {processStart.FileName} {processStart.Arguments}");
         await Task.Delay(100);
-        Process.Start(processStart).WaitForExit();
+        Process.Start(processStart)!.WaitForExit();
 
         // Merge wav and video
         // ffmpeg -i input_video.mp4 -i input_audio.wav -c:v copy -c:a aac -map 0:v:0 -map 1:a:0 output.mp4
@@ -80,7 +80,7 @@ public class VideoExporterContextMenu : DataExplorerContextMenuExtension
 
         App.Logger.Log($"[EXEC] {processStart.FileName} {processStart.Arguments}");
         await Task.Delay(100);
-        Process.Start(processStart).WaitForExit();
+        Process.Start(processStart)!.WaitForExit();
         
         App.Logger.Log($"Video export success: {outputFileFullMp4}");
     }
