@@ -17,7 +17,13 @@ public class VideoExporterContextMenu : DataExplorerContextMenuExtension
 
     private async void OnContextMenuClicked(object obj)
     {
-        object? ebxObject = App.AssetManager.GetEbx(App.SelectedAsset)?.RootObject;
+        if (string.IsNullOrWhiteSpace(VideoExporterPlugin.FFMPEG_EXECUTABLE) ||
+            string.IsNullOrWhiteSpace(VideoExporterPlugin.VGMSTREAM_EXECUTABLE))
+        {
+            App.Logger.LogWarning("VideoExporter plugin could not find the FFmpeg/VGMStream-CLI executable. Restarting Frosty will prompt to install these two utilities.");
+            return;
+        }
+        object ebxObject = App.AssetManager.GetEbx(App.SelectedAsset)?.RootObject;
         PropertyInfo chunkGuidProperty = ebxObject?.GetType().GetProperty("ChunkGuid");
         if (chunkGuidProperty is null)
         {
@@ -75,5 +81,7 @@ public class VideoExporterContextMenu : DataExplorerContextMenuExtension
         App.Logger.Log($"[EXEC] {processStart.FileName} {processStart.Arguments}");
         await Task.Delay(100);
         Process.Start(processStart).WaitForExit();
+        
+        App.Logger.Log($"Video export success: {outputFileFullMp4}");
     }
 }

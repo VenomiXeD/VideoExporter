@@ -8,7 +8,7 @@ using VideoViewer;
 
 [assembly: PluginAuthor("MeanPartyRose, SprettWasHere")]
 [assembly: PluginDisplayName("Video Exporter")]
-[assembly: PluginVersion("1.0.0.0")]
+[assembly: PluginVersion("1.0.1.0")]
 [assembly: RegisterStartupAction(typeof(VideoExporterPlugin))]
 
 namespace VideoViewer;
@@ -80,6 +80,9 @@ public class VideoExporterPlugin : StartupAction
                     ZipFile.ExtractToDirectory(vgmstreamZip, VGMSTREAM_FOLDER);
                 }
             }
+            
+            App.Logger.Log(string.IsNullOrWhiteSpace(FFMPEG_EXECUTABLE) ? "FFmpeg: Missing " : "FFmpeg: Ready");
+            App.Logger.Log(string.IsNullOrWhiteSpace(VGMSTREAM_EXECUTABLE) ? "VGMStream: Missing " : "VGMStream: Ready");
         }
     }
 }
