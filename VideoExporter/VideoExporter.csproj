@@ -1,0 +1,38 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+        <TargetFramework>net48</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>disable</Nullable>
+        <UseWindowsForms>true</UseWindowsForms>
+        <TargetPlatformIdentifier>Windows</TargetPlatformIdentifier>
+        <LangVersion>default</LangVersion>
+    </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="FrostyControls">
+      <HintPath>libs\FrostyControls.dll</HintPath>
+    </Reference>
+    <Reference Include="FrostyCore">
+      <HintPath>libs\FrostyCore.dll</HintPath>
+    </Reference>
+    <Reference Include="FrostyHash">
+      <HintPath>libs\FrostyHash.dll</HintPath>
+    </Reference>
+    <Reference Include="FrostyModSupport">
+      <HintPath>libs\FrostyModSupport.dll</HintPath>
+    </Reference>
+    <Reference Include="FrostySdk">
+      <HintPath>libs\FrostySdk.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Costura.Fody" Version="6.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="SharpCompress" Version="0.41.0" />
+  </ItemGroup>
+
+</Project>
